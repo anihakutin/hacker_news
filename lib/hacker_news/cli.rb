@@ -5,6 +5,9 @@ class HackerNews::CLI
     list_news
     menu
     good_bye
+
+    # temp for testing
+    HackerNews::SCRAPER.new.get_stories
   end
 
   def list_news #(args)
@@ -18,12 +21,7 @@ class HackerNews::CLI
 
   def menu
     input = nil
-    puts "1. Show recent news \n
-          2. Show article with most comments \n
-          3. Search for article \n
-          4. Sort articles by source \n
-          5. List comments \n
-          Please enter a menu option:"
+    puts " 1. Show recent news \n 2. Show article with most comments \n 3. Search for article \n 4. Sort articles by source \n 5. List comments \n Please enter a menu option:"
 
     input = gets.chomp
     if input != "exit"
