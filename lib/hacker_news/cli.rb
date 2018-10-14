@@ -45,8 +45,12 @@ class HackerNews::CLI
             third_input = sec_input = gets.strip.downcase
             articles = HackerNews::SCRAPER.new.top_articles(50)
             HackerNews::ARTICLE.create_from_collection(articles)
-            HackerNews::SCRAPER.find_by_value("story", third_input)
-            display_news(articles)
+            articles = HackerNews::ARTICLE.find_by_value("story", third_input)
+             if articles != false
+                 display_news(articles)
+               else
+                 puts "No matching keywords found"
+             end
           when "2"
 
           when "3"

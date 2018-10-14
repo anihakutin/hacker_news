@@ -27,7 +27,15 @@ class HackerNews::ARTICLE
       end
 
       def find_by_value(type, value)
-        filter_by_type(type).select {|x| x.title.include?(value) || x.text.include?(value)}
+        # fixme "Check for nil properties"
+        binding.pry
+        filter_by_type(type).select do |x|
+            if x.title.include?(value) || x.text.include?(value)
+              true
+            else
+              false
+            end
+          end
       end
 
       def all
