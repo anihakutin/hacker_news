@@ -22,12 +22,12 @@ class HackerNews::ARTICLE
 
       end
 
-      def sort_by_type
-
+      def filter_by_type(type)
+        all.select {|x| x.type == type}
       end
 
-      def find_by_value(value)
-
+      def find_by_value(type, value)
+        filter_by_type(type).select {|x| x.title.include?(value) || x.text.include?(value)}
       end
 
       def all
