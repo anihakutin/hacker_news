@@ -3,7 +3,7 @@
   -Can pull news(latest) Stories
   -Can pull top Stories
   -Can pull show stories
-  -CAN pull latest show Stories
+  -Can pull latest show Stories
   -Can pull ask stories
   -Can pull jobs
 

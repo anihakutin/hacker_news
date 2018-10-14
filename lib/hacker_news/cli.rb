@@ -2,23 +2,26 @@
 class HackerNews::CLI
 
   def call
-    list_news
+    display_news
     menu
     good_bye
   end
 
-  def list_news #(args)
+  def display_news #(args)
     puts "Welocme to hacker news! \n"
-    puts "--------------------------"
-    # test code -----------
-    top_stories = HackerNews::SCRAPER.new.get_stories
-    top_stories.each do |x|
+    puts "----Latest Articles----"
+
+    # request 10 latest_articles
+    new_articles = HackerNews::SCRAPER.new.latest_articles(10)
+    HackerNews::ARTICLE.create_from_collection(new_articles)
+
+    # Print article objects
+    ARTICLE.all.each do |x|
       puts "#{x[:title]} by #{x[:by]}"
       puts "Link #{x[:url]}"
       puts "#{x[:text]}"
     end
-    # ---------------------
-    puts "----Latest Articles----"
+
 
     puts "------------------------ \n"
   end
