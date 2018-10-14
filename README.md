@@ -1,8 +1,10 @@
 # HackerNews
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hacker_news`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem will allow you to read articles from hacker news.
+Menu option are given to select which section to pull(news, top, show HN, ask, jobs)
+This gem will also allow you to filter and sort by author type or keyword.
 
-TODO: Delete this and the text above, and describe your gem
+This gem was built using the HN api.
 
 ## Installation
 
