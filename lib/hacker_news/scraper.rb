@@ -37,7 +37,7 @@ class HackerNews::SCRAPER
       stories
     end
 
-    def top_articles
+    def top_articles(count = 10)
       print "Loading articles."
       stories = [ ]
       url = "https://hacker-news.firebaseio.com/v0/topstories.json"
