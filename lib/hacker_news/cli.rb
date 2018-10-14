@@ -8,19 +8,22 @@ class HackerNews::CLI
   end
 
   def list_news #(args)
+    puts "Welocme to hacker news! \n"
+    puts "----Latest Articles----"
     puts "Teach Yourself to Echolocate: A beginner’s guide to navigating with sound \n
           link 'https://news.ycombinator.com/from?site=atlasobscura.com' \n
           337 point & 39 comments"
+    puts "------------------------ \n"
   end
 
   def menu
-    input = null
-
+    input = nil
     puts "1. Show recent news \n
           2. Show article with most comments \n
           3. Search for article \n
           4. Sort articles by source \n
-          5. List comments"
+          5. List comments \n
+          Please enter a menu option:"
 
     input = gets.chomp
     if input != "exit"
