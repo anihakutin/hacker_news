@@ -1,6 +1,6 @@
 class HackerNews::ARTICLE
   @@all = []
-  attr_accessor :title, :author, :time, :text, :url
+  attr_accessor :title, :type, :author, :time, :text, :url
 
   def initialize(posts)
     posts.each {|k, v| send(:"#{k}=", v)}

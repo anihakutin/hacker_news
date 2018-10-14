@@ -26,7 +26,7 @@ class HackerNews::SCRAPER
 
         new_story = {:title => story["title"],
                   :type => story["type"],
-                  :by => story["by"],
+                  :author => story["by"],
                   :time => story["time"],
                   :text => story["story"],
                   :url => story["url"]}

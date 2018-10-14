@@ -16,13 +16,11 @@ class HackerNews::CLI
     HackerNews::ARTICLE.create_from_collection(new_articles)
 
     # Print article objects
-    ARTICLE.all.each do |x|
-      puts "#{x[:title]} by #{x[:by]}"
-      puts "Link #{x[:url]}"
-      puts "#{x[:text]}"
+    HackerNews::ARTICLE.all.each do |x|
+      puts "#{x.title} by #{x.author}"
+      puts "Link #{x.url}"
+      puts "#{x.text}"
     end
-
-
     puts "------------------------ \n"
   end
 
