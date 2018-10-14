@@ -1,7 +1,19 @@
 1. Stub out CLI - Done
 2. build scraper
-3. build news object with sort and search methods
+  -Can pull news(latest) Stories
+  -Can pull top Stories
+  -Can pull show stories
+  -CAN pull latest show Stories
+  -Can pull ask stories
+  -Can pull jobs
 
+3. build article object with sort and search methods
+  -Article represents any post(story, ask, jobs etc.)
+  -Can search for articles
+  -Can sort articles
+  -Can query Articles(author, keyword)
+
+---------------------------------
 
 HN API
 ----------------------

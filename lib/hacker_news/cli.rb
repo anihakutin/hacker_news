@@ -18,10 +18,8 @@ class HackerNews::CLI
       puts "#{x[:text]}"
     end
     # ---------------------
-    # puts "----Latest Articles----"
-    # puts "Teach Yourself to Echolocate: A beginner’s guide to navigating with sound \n
-    #       link 'https://news.ycombinator.com/from?site=atlasobscura.com' \n
-    #       337 point & 39 comments"
+    puts "----Latest Articles----"
+
     puts "------------------------ \n"
   end
 

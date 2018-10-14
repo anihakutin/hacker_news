@@ -6,7 +6,7 @@ class HackerNews::SCRAPER
     require 'json'
     require 'pry'
 
-    def get_stories(count = 10)
+    def latest_articles(count = 10)
       print "Loading stories."
       stories = [ ]
       url = "https://hacker-news.firebaseio.com/v0/newstories.json"
@@ -37,19 +37,19 @@ class HackerNews::SCRAPER
       stories
     end
 
-    def top_stories
+    def top_articles
 
     end
 
-    def best_stories
+    def show_articles
 
     end
 
-    def news_stories
+    def ask_articles
 
     end
 
-    def story_comments(story)
+    def jobs
 
     end
 end
