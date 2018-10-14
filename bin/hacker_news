@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "hacker_news"
+
+HackerNews::CLI.new.call
