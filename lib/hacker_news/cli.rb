@@ -5,17 +5,23 @@ class HackerNews::CLI
     list_news
     menu
     good_bye
-
-    # temp for testing
-    HackerNews::SCRAPER.new.get_stories
   end
 
   def list_news #(args)
     puts "Welocme to hacker news! \n"
-    puts "----Latest Articles----"
-    puts "Teach Yourself to Echolocate: A beginner’s guide to navigating with sound \n
-          link 'https://news.ycombinator.com/from?site=atlasobscura.com' \n
-          337 point & 39 comments"
+    puts "--------------------------"
+    # test code -----------
+    top_stories = HackerNews::SCRAPER.new.get_stories
+    top_stories.each do |x|
+      puts "#{x[:title]} by #{x[:by]}"
+      puts "Link #{x[:url]}"
+      puts "#{x[:text]}"
+    end
+    # ---------------------
+    # puts "----Latest Articles----"
+    # puts "Teach Yourself to Echolocate: A beginner’s guide to navigating with sound \n
+    #       link 'https://news.ycombinator.com/from?site=atlasobscura.com' \n
+    #       337 point & 39 comments"
     puts "------------------------ \n"
   end
 
