@@ -90,7 +90,7 @@ class HackerNews::CLI
         # Clear all articles
         HackerNews::ARTICLE.clear
         # Get articles
-        articles = HackerNews::SCRAPER.new.top_articles
+        articles = HackerNews::SCRAPER.new.top_articles(3)
         # Create article objects
         HackerNews::ARTICLE.create_from_collection(articles)
         # Display user options
@@ -105,7 +105,10 @@ class HackerNews::CLI
             # Display articles to user
             display_news(articles)
           when "2"
-
+            # Find article requested by user
+            articles = HackerNews::ARTICLE.sort_by_author
+            # Display articles to user
+            display_news(articles)
           else
 
         end
