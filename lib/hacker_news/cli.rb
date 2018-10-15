@@ -1,5 +1,5 @@
 # To Do
-# refactor menu
+# refactor menuT
 # refactor scraper
 class HackerNews::CLI
 
