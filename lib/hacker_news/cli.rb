@@ -1,6 +1,7 @@
 # To Do
-# refactor menuT
-# refactor scraper
+# refactor menu
+# query author
+# display show, ask, jobs
 class HackerNews::CLI
 
   def call

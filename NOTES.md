@@ -1,17 +1,17 @@
 1. Stub out CLI - Done
 2. build scraper
-  -Can pull news(latest) Stories
-  -Can pull top Stories
+  -Can pull news(latest) Stories - Done
+  -Can pull top Stories - Done
   -Can pull show stories
   -Can pull latest show Stories
   -Can pull ask stories
   -Can pull jobs
 
 3. build article object with sort and search methods
-  -Article represents any post(story, ask, jobs etc.)
-  -Can search for articles
-  -Can sort articles
-  -Can query Articles(author, keyword)
+  Article represents any post(story, ask, jobs etc.)
+  -Can search for articles - Done
+  -Can sort articles - Done
+  -Can query Articles(author, keyword) - Done
 
 ---------------------------------
 

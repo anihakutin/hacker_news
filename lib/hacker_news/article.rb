@@ -37,9 +37,9 @@ class HackerNews::ARTICLE
       # Returns articles and removes duplicates //fixme
         finder.uniq
       end
-      
-      def find_by_title(title)
-        all.select {|e| e.title.downcase == title.downcase}
+
+      def find_by_author(author)
+        all.select {|e| e.author.downcase == author.downcase}
       end
 
       def clear
