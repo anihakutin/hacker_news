@@ -7,7 +7,7 @@ class HackerNews::CLI
   end
 
   def display_news(articles)
-    puts "----What you ask is what you get...---- \n"
+    puts "----You ask, you get...---- \n\n"
     # Print article objects
     articles.each do |x|
       puts "#{x.title} by #{x.author}"
@@ -67,6 +67,7 @@ class HackerNews::CLI
 
           else
             puts "Please enter a valid menu selection"
+            menu
         end
       when "4"
 
