@@ -4,21 +4,24 @@ class HackerNews::SCRAPER
     require 'json'
     require 'pry'
 
+    # Takes count and returns hash
+    # https://news.ycombinator.com/newest
     def latest_articles(count = 10)
+      # return variable
       stories = [ ]
-
+      # Print status
       print "Loading articles."
-
+      # Set url
       url = "https://hacker-news.firebaseio.com/v0/newstories.json"
       uri = URI(url)
       print "."
-
+      # Get data
       response = Net::HTTP.get(uri)
       print "."
-
+      # parse data
       story_ids = JSON.parse(response)
       print "."
-
+      # create hash using article id's
       i = 0
       while i < count
         print "."
@@ -43,21 +46,24 @@ class HackerNews::SCRAPER
       stories
     end
 
+    # Takes count and returns hash
+    # https://news.ycombinator.com/news
     def top_articles(count = 200)
+      # return variable
       stories = [ ]
-
+      # print status
       print "Loading articles."
-
+      # set url
       url = "https://hacker-news.firebaseio.com/v0/topstories.json"
       uri = URI(url)
       print "."
-
+      # get data
       response = Net::HTTP.get(uri)
       print "."
-
+      # parse data
       story_ids = JSON.parse(response)
       print "."
-
+      # create hash using article id's
       i = 0
       while i < count
         print "."
@@ -84,7 +90,7 @@ class HackerNews::SCRAPER
     end
 
     def show_articles
-
+      
     end
 
     def ask_articles

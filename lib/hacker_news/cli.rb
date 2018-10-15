@@ -1,4 +1,6 @@
-# Demo UI...
+# To Do
+# refactor menu
+# refactor scraper
 class HackerNews::CLI
 
   def call
@@ -90,7 +92,7 @@ class HackerNews::CLI
         # Clear all articles
         HackerNews::ARTICLE.clear
         # Get articles
-        articles = HackerNews::SCRAPER.new.top_articles(3)
+        articles = HackerNews::SCRAPER.new.top_articles(50)
         # Create article objects
         HackerNews::ARTICLE.create_from_collection(articles)
         # Display user options
@@ -110,7 +112,8 @@ class HackerNews::CLI
             # Display articles to user
             display_news(articles)
           else
-
+            puts "Please enter a valid menu selection"
+            menu
         end
       when "5"
 
