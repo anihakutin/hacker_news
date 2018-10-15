@@ -24,6 +24,7 @@ class HackerNews::CLI
     # User input
     input = nil
     # Welcome message
+    puts "\n"
     puts "Welcome to hacker news!"
     puts "Enter the number of the menu option you'd like to see, or type exit to exit:"
     puts " 1. Show ten mosts recent posts \n 2. Show ten top posts \n 3. Search for article(in top 200) \n 4. Sort articles by Title/Author \n 5. List comments \n "
@@ -73,7 +74,7 @@ class HackerNews::CLI
               if !articles.empty?
                    display_news(articles)
                  else
-                   puts "No matching keywords found"
+                   puts "No matching keywords found \n"
                    menu
                end
 
