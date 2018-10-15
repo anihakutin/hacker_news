@@ -6,7 +6,7 @@ class HackerNews::SCRAPER
 
     def latest_articles(count = 10)
       stories = [ ]
-      
+
       print "Loading articles."
 
       url = "https://hacker-news.firebaseio.com/v0/newstories.json"
@@ -43,7 +43,7 @@ class HackerNews::SCRAPER
       stories
     end
 
-    def top_articles(count = 10)
+    def top_articles(count = 200)
       stories = [ ]
 
       print "Loading articles."

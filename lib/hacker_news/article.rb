@@ -18,11 +18,11 @@ class HackerNews::ARTICLE
       end
 
       def sort_by_name
-
+        all.sort_by {|e| e.title.downcase}
       end
 
       def sort_by_author
-
+        all.sort_by {|e| e.author.downcase}
       end
 
       def filter_by_type(type)
@@ -38,6 +38,10 @@ class HackerNews::ARTICLE
 
       def find_by_title(title)
         all.select {|e| e.title.downcase == title.downcase}
+      end
+
+      def clear
+        all.clear
       end
 
       def all
