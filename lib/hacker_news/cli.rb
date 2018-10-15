@@ -6,14 +6,10 @@ class HackerNews::CLI
     good_bye
   end
 
-  def display_news(articles = HackerNews::SCRAPER.new.latest_articles(10))
+  def display_news(articles)
     puts "----What you ask is what you get...---- \n"
-
-    # request 10 latest_articles
-    HackerNews::ARTICLE.create_from_collection(articles)
-
     # Print article objects
-    HackerNews::ARTICLE.all.each do |x|
+    articles.each do |x|
       puts "#{x.title} by #{x.author}"
       puts "Link #{x.url}"
       puts "#{x.text}"
@@ -24,21 +20,23 @@ class HackerNews::CLI
   def menu
     input = nil
 
-    puts "Welocme to hacker news!"
+    puts "Welcome to hacker news!"
     puts "Enter the number of the menu option you'd like to see, or type exit to exit:"
     puts " 1. Show ten mosts recent posts \n 2. Show ten top posts \n 3. Search for article(in top 200) \n 4. Sort articles by source \n 5. List comments \n "
 
     input = gets.strip.downcase
-    
+
     if input != "exit"
       case input
 
       when "1"
-        articles = HackerNews::SCRAPER.new.latest_articles(10)
+        stories = HackerNews::SCRAPER.new.latest_articles(10)
+        articles = HackerNews::ARTICLE.create_from_collection(stories)
         display_news(articles)
 
       when "2"
-        articles = HackerNews::SCRAPER.new.top_articles(10)
+        stories = HackerNews::SCRAPER.new.top_articles(10)
+        articles = HackerNews::ARTICLE.create_from_collection(stories)
         display_news(articles)
 
       when "3"
@@ -50,15 +48,15 @@ class HackerNews::CLI
             puts "Please enter your keyword"
             third_input = sec_input = gets.strip.downcase
 
-            articles = HackerNews::SCRAPER.new.top_articles(50)
+            articles = HackerNews::SCRAPER.new.top_articles(20)
             HackerNews::ARTICLE.create_from_collection(articles)
+            articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
 
-            articles = HackerNews::ARTICLE.find_by_value("story", third_input)
-
-             if articles != false
+             if !articles.empty?
                  display_news(articles)
                else
                  puts "No matching keywords found"
+                 menu
              end
 
           when "2"
