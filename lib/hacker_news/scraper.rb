@@ -22,6 +22,14 @@ class HackerNews::SCRAPER
       generate_article(stories, count)
     end
 
+    def best_articles(count = 10)
+      # set URL and get article id's
+      stories = get_page_data("beststories")
+      # generate articles and return article array
+      generate_article(stories, count)
+
+    end
+
     def show_articles(count = 10)
       # set URL and get article id's
       stories = get_page_data("showstories")
@@ -42,6 +50,7 @@ class HackerNews::SCRAPER
       # generate articles and return article array
       generate_article(stories, count)
     end
+
     # Takes page name and returns hash with article id's
     def get_page_data(page = "newstories")
       # base URL
@@ -83,6 +92,7 @@ class HackerNews::SCRAPER
               i += 1
             end
       # return array with articles as hash
+      print "\n"
       stories
     end
 end
