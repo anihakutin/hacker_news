@@ -1,6 +1,6 @@
 class HackerNews::ARTICLE
   @@all = []
-  attr_accessor :title, :type, :author, :time, :text, :url
+  attr_accessor :title, :id, :type, :author, :time, :text, :url, :parent, :descendants, :kids
 
   def initialize(article)
       article.each {|k, v| send(:"#{k}=", v)} unless article == nil
@@ -12,7 +12,6 @@ class HackerNews::ARTICLE
   class << self
       # Takes hash and creates and returns article objects
       def create_from_collection(collection)
-        binding.pry
         articles = [ ]
         collection.each {|article| articles << self.new(article)}
         articles
@@ -40,6 +39,11 @@ class HackerNews::ARTICLE
 
       def find_by_author(author)
         all.select {|e| e.author.downcase == author.downcase}
+      end
+      #returns kid id's by parent id on invalid return false
+      def kids_by_id(id)
+        kids = all.select {|e| e.id == id}
+        kids.descendants
       end
 
       def clear

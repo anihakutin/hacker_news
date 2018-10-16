@@ -11,6 +11,7 @@ class HackerNews::CLI
     articles.each do |x|
       puts "#{x.title} by #{x.author}"
       puts "Link #{x.url}"
+      puts "#{x.descendants} comments, Article ID: #{x.id}"
       puts "#{x.text}"
     end
 
@@ -35,7 +36,7 @@ class HackerNews::CLI
       # Get articles
       # Create article objects
       # Display articles to user
-      HackerNews::ARTICLE.clear\
+      HackerNews::ARTICLE.clear
 
       stories = HackerNews::SCRAPER.new.latest_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)
