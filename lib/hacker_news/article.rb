@@ -3,7 +3,6 @@ class HackerNews::ARTICLE
   attr_accessor :title, :type, :author, :time, :text, :url
 
   def initialize(article)
-      # binding.pry
       article.each {|k, v| send(:"#{k}=", v)} unless article == nil
 
     @@all << self
