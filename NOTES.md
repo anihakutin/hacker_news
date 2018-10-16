@@ -2,10 +2,11 @@
 2. build scraper
   -Can pull news(latest) Stories - Done
   -Can pull top Stories - Done
-  -Can pull show stories
-  -Can pull latest show Stories
-  -Can pull ask stories
-  -Can pull jobs
+  -Can pull show stories - Done
+  -Can pull latest show Stories - Done
+  -Can pull ask stories - Done
+  -Can pull jobs - Done
+  -Can pull comments
 
 3. build article object with sort and search methods
   Article represents any post(story, ask, jobs etc.)
