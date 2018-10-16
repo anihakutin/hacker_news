@@ -36,8 +36,11 @@ class HackerNews::SCRAPER
       generate_article(stories, count)
     end
 
-    def jobs
-
+    def job_articles(count = 20)
+      # set URL and get article id's
+      stories = get_page_data("jobstories")
+      # generate articles and return article array
+      generate_article(stories, count)
     end
     # Takes page name and returns hash with article id's
     def get_page_data(page = "newstories")

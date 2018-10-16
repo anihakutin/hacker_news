@@ -55,68 +55,137 @@ class HackerNews::CLI
         display_news(articles)
 
       when "3"
-        puts "Please select what section you'd like to search \n 1. News \n 2. Top Posts \n 3. Show HN \n 4. Jobs"
+        puts "Please select what section you'd like to search \n 1. Top Posts \n 2. Newest \n 3. Show HN \n 4. Ask \n 5. jobs"
         sec_input = gets.strip.downcase
 
-        case sec_input
-          when "1"
-            puts "Please enter your keyword"
-            third_input = sec_input = gets.strip.downcase
-              # Clear all articles
-              HackerNews::ARTICLE.clear
-              # Get articles
-              articles = HackerNews::SCRAPER.new.top_articles(20)
-              # Create article objects
-              HackerNews::ARTICLE.create_from_collection(articles)
-              # Find article requested by user
-              articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
-              # Display result to user
-              if !articles.empty?
-                   display_news(articles)
-                 else
-                   puts "No matching keywords found \n"
-                   menu
-               end
+            case sec_input
+              when "1"
+                puts "Please enter your keyword"
+                third_input = sec_input = gets.strip.downcase
+                  # Clear all articles
+                  HackerNews::ARTICLE.clear
+                  # Get articles
+                  articles = HackerNews::SCRAPER.new.top_articles(20)
+                  # Create article objects
+                  HackerNews::ARTICLE.create_from_collection(articles)
+                  # Find article requested by user
+                  articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
+                  # Display result to user
+                  if !articles.empty?
+                       display_news(articles)
+                     else
+                       puts "No matching keywords found \n"
+                       menu
+                   end
 
-          when "2"
+                    when "2"
+                      puts "Please enter your keyword"
+                      third_input = sec_input = gets.strip.downcase
+                        # Clear all articles
+                        HackerNews::ARTICLE.clear
+                        # Get articles
+                        articles = HackerNews::SCRAPER.new.latest_articles(20)
+                        # Create article objects
+                        HackerNews::ARTICLE.create_from_collection(articles)
+                        # Find article requested by user
+                        articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
+                        # Display result to user
+                        if !articles.empty?
+                             display_news(articles)
+                           else
+                             puts "No matching keywords found \n"
+                             menu
+                         end
 
-          when "3"
+                            when "3"
+                              puts "Please enter your keyword"
+                              third_input = sec_input = gets.strip.downcase
+                                # Clear all articles
+                                HackerNews::ARTICLE.clear
+                                # Get articles
+                                articles = HackerNews::SCRAPER.new.show_articles(20)
+                                # Create article objects
+                                HackerNews::ARTICLE.create_from_collection(articles)
+                                # Find article requested by user
+                                articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
+                                # Display result to user
+                                if !articles.empty?
+                                     display_news(articles)
+                                   else
+                                     puts "No matching keywords found \n"
+                                     menu
+                                 end
 
-          when "4"
+                            when "4"
+                              puts "Please enter your keyword"
+                              third_input = sec_input = gets.strip.downcase
+                              # Clear all articles
+                              HackerNews::ARTICLE.clear
+                              # Get articles
+                              articles = HackerNews::SCRAPER.new.ask_articles(20)
+                              # Create article objects
+                              HackerNews::ARTICLE.create_from_collection(articles)
+                              # Find article requested by user
+                              articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
+                              # Display result to user
+                              if !articles.empty?
+                                   display_news(articles)
+                                 else
+                                   puts "No matching keywords found \n"
+                                   menu
+                               end
 
-          else
-            puts "Please enter a valid menu selection"
-            menu
-        end
+                             when "5"
+                               puts "Please enter your keyword"
+                               third_input = sec_input = gets.strip.downcase
+                               # Clear all articles
+                               HackerNews::ARTICLE.clear
+                               # Get articles
+                               articles = HackerNews::SCRAPER.new.job_articles(20)
+                               # Create article objects
+                               HackerNews::ARTICLE.create_from_collection(articles)
+                               # Find article requested by user
+                               articles = HackerNews::ARTICLE.find_by_keyword("story", third_input)
+                               # Display result to user
+                               if !articles.empty?
+                                    display_news(articles)
+                                  else
+                                    puts "No matching keywords found \n"
+                                    menu
+                                end
+                else
+                  puts "Please enter a valid menu selection"
+                  menu
+              end
       when "4"
         # -- Preload articles --
         #
         # Clear all articles
         HackerNews::ARTICLE.clear
-        # Get articles
-        articles = HackerNews::SCRAPER.new.top_articles(50)
-        # Create article objects
-        HackerNews::ARTICLE.create_from_collection(articles)
-        # Display user options
-        puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"
-        # Get user input
-        input = gets.strip.downcase
-        # Process input
-        case input
-          when "1"
-            # Find article requested by user
-            articles = HackerNews::ARTICLE.sort_by_name
-            # Display articles to user
-            display_news(articles)
-          when "2"
-            # Find article requested by user
-            articles = HackerNews::ARTICLE.sort_by_author
-            # Display articles to user
-            display_news(articles)
-          else
-            puts "Please enter a valid menu selection"
-            menu
-        end
+          # Get articles
+          articles = HackerNews::SCRAPER.new.top_articles(50)
+            # Create article objects
+            HackerNews::ARTICLE.create_from_collection(articles)
+              # Display user options
+              puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"
+              # Get user input
+              input = gets.strip.downcase
+              # Process input
+              case input
+                when "1"
+                  # Find article requested by user
+                  articles = HackerNews::ARTICLE.sort_by_name
+                  # Display articles to user
+                  display_news(articles)
+                when "2"
+                  # Find article requested by user
+                  articles = HackerNews::ARTICLE.sort_by_author
+                  # Display articles to user
+                  display_news(articles)
+                else
+                  puts "Please enter a valid menu selection"
+                  menu
+              end
       when "5"
 
       else
