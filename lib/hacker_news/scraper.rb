@@ -7,94 +7,33 @@ class HackerNews::SCRAPER
     # Takes count and returns hash with articles
     # https://news.ycombinator.com/newest
     def latest_articles(count = 10)
-      # return variable
-      stories = [ ]
-      # Print status
-      print "Loading articles."
-      # Set url
-      url = "https://hacker-news.firebaseio.com/v0/newstories.json"
-      uri = URI(url)
-      print "."
-      # Get data
-      response = Net::HTTP.get(uri)
-      print "."
-      # parse data
-      story_ids = JSON.parse(response)
-      print "."
-      # create hash using article id's
-      i = 0
-      while i < count
-        print "."
-
-        story_url = "https://hacker-news.firebaseio.com/v0/item/#{story_ids[i]}.json"
-        story_uri = URI(story_url)
-
-        story_response = Net::HTTP.get(story_uri)
-        story = JSON.parse(story_response)
-
-        new_story = {:title => story["title"],
-                  :type => story["type"],
-                  :author => story["by"],
-                  :time => story["time"],
-                  :text => story["story"],
-                  :url => story["url"]}
-        stories << new_story
-        i += 1
-      end
-
-      print "\n"
-      stories
+      # set URL and get article id's
+      stories = get_page_data("newstories")
+      # generate articles and return article array
+      generate_article(stories, count)
     end
 
     # Takes count and returns hash with articles
     # https://news.ycombinator.com/news
-    def top_articles(count = 200)
-      # return variable
-      stories = [ ]
-      # print status
-      print "Loading articles."
-      # set url
-      url = "https://hacker-news.firebaseio.com/v0/topstories.json"
-      uri = URI(url)
-      print "."
-      # get data
-      response = Net::HTTP.get(uri)
-      print "."
-      # parse data
-      story_ids = JSON.parse(response)
-      print "."
-      # create hash using article id's
-      i = 0
-      while i < count
-        print "."
-
-        story_url = "https://hacker-news.firebaseio.com/v0/item/#{story_ids[i]}.json"
-        story_uri = URI(story_url)
-
-        story_response = Net::HTTP.get(story_uri)
-        story = JSON.parse(story_response)
-
-        new_story = {:title => story["title"],
-                  :type => story["type"],
-                  :author => story["by"],
-                  :time => story["time"],
-                  :text => story["story"],
-                  :url => story["url"]}
-
-        stories << new_story
-        i += 1
-      end
-
-      print "\n"
-      stories
+    def top_articles(count = 10)
+      # set URL and get article id's
+      stories = get_page_data("topstories")
+      # generate articles and return article array
+      generate_article(stories, count)
     end
 
-    def show_articles
-
+    def show_articles(count = 10)
+      # set URL and get article id's
+      stories = get_page_data("showstories")
+      # generate articles and return article array
+      generate_article(stories, count)
     end
 
-    def ask_articles
-
+    def ask_articles(count = 10)
+      # set URL and get article id's
+      stories = get_page_data("askstories")
+      # generate articles and return article array
+      generate_article(stories, count)
     end
 
     def jobs
@@ -102,42 +41,44 @@ class HackerNews::SCRAPER
     end
     # Takes page name and returns hash with article id's
     def get_page_data(page = "newstories")
-      # New, Top and Best Stories
-      # Up to 500 top and new stories are at /v0/topstories and /v0/newstories.
-      # Best stories are at /v0/beststories.
-      # -----------------
-      # Ask, Show and Job Stories
-      # Up to 200 of the latest Ask HN, Show HN, and Job stories are at
-      # /v0/askstories, /v0/showstories, and /v0/jobstories.
+      # base URL
       base_url = "https://hacker-news.firebaseio.com/v0/"
+      # build URL with requested page
       uri = URI(base_url + "#{page}.json" )
+      # get page data
       response = Net::HTTP.get(uri)
+      # parse data
       story_ids = JSON.parse(response)
     end
 
-    def generate_article(page_data)
-      stories = [ ]
-      # request each article via it's id
-      i = 0
-      while i < count
-        print "."
-
-        story_url = "https://hacker-news.firebaseio.com/v0/item/#{story_ids[i]}.json"
-        story_uri = URI(story_url)
-
-        story_response = Net::HTTP.get(story_uri)
-        story = JSON.parse(story_response)
-
-        new_story = {:title => story["title"],
-                  :type => story["type"],
-                  :author => story["by"],
-                  :time => story["time"],
-                  :text => story["story"],
-                  :url => story["url"]}
-
-        stories << new_story
-        i ++
-      end
+    # generate article with page id's, return "count" articles
+    def generate_article(page_data, count = 10)
+          # print current status to user
+          print "Loading articles."
+            # return variable
+            stories = [ ]
+              # request each article via it's post id
+              i = 0
+              while i < count
+                print "."
+                # set URL
+                story_url = "https://hacker-news.firebaseio.com/v0/item/" + "#{page_data[i]}.json"
+                  story_uri = URI(story_url)
+                    #get page data
+                    story_response = Net::HTTP.get(story_uri)
+                      # parse data
+                      story = JSON.parse(story_response)
+                        # article hash builder
+                          new_story = {:title => story["title"],
+                                      :type => story["type"],
+                                      :author => story["by"],
+                                      :time => story["time"],
+                                      :text => story["story"],
+                                      :url => story["url"]}
+                      # build article array
+                stories << new_story
+              i += 1
+            end
       # return array with articles as hash
       stories
     end

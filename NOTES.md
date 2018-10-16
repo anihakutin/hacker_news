@@ -17,6 +17,14 @@
 
 HN API
 ----------------------
+# New, Top and Best Stories
+# Up to 500 top and new stories are at /v0/topstories and /v0/newstories.
+# Best stories are at /v0/beststories.
+# -----------------
+# Ask, Show and Job Stories
+# Up to 200 of the latest Ask HN, Show HN, and Job stories are at
+# /v0/askstories, /v0/showstories, and /v0/jobstories.
+______________________
 Items
 Stories, comments, jobs, Ask HNs and even polls are just items. They're identified by their ids, which are unique integers, and live under /v0/item/<id>.
 

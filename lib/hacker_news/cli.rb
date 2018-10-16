@@ -10,7 +10,7 @@ class HackerNews::CLI
   end
 
   def display_news(articles)
-    puts "----You ask, you get...---- \n\n"
+    puts "\n ----You ask, you get...---- \n\n"
     # Print article objects
     articles.each do |x|
       puts "#{x.title} by #{x.author}"
