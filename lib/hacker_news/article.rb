@@ -12,6 +12,7 @@ class HackerNews::ARTICLE
   class << self
       # Takes hash and creates and returns article objects
       def create_from_collection(collection)
+        binding.pry
         articles = [ ]
         collection.each {|article| articles << self.new(article)}
         articles

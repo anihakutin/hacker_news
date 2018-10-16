@@ -35,7 +35,7 @@ class HackerNews::CLI
       # Get articles
       # Create article objects
       # Display articles to user
-      HackerNews::ARTICLE.clear
+      HackerNews::ARTICLE.clear\
 
       stories = HackerNews::SCRAPER.new.latest_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)

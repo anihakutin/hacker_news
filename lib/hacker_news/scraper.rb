@@ -68,11 +68,15 @@ class HackerNews::SCRAPER
       story = JSON.parse(story_response)
       # article hash builder
       new_story = {:title => story["title"],
+                  :id => story["id"],
                   :type => story["type"],
                   :author => story["by"],
                   :time => story["time"],
                   :text => story["story"],
-                  :url => story["url"]}
+                  :url => story["url"],
+                  :parent => story["parent"],
+                  :descendants => story["descendants"],
+                  :kids => story["kids"]}
       stories << new_story
       i += 1
       end
@@ -80,4 +84,5 @@ class HackerNews::SCRAPER
       print "\n"
       stories
     end
+
 end
