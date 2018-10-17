@@ -37,9 +37,10 @@ class HackerNews::SCRAPER
       @loaded_articles[:job_stories] ||= generate_article(stories, count)
     end
 
-    def get_comment
-
-    end
+    # def get_comments(parent_id)
+    #   stories =
+    #   @loaded_articles[parent_id] ||= generate_article(stories, count)
+    # end
 
     # Takes page name and returns hash with article id's
     def get_page_data(page = "newstories")

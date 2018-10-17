@@ -58,8 +58,12 @@ class HackerNews::ARTICLE
 
       #returns kid id's by parent id on invalid return false
       def kids_by_id(id)
-        kids = all.select {|e| e.id == id}
-        kids.descendants
+        comments = [ ]
+        parent = all.select {|e| e.id.to_s == id}
+        comments << parent.first.kids ||= nil
+        comments << parent.first.descendants
+
+        comments
       end
 
       def clear
