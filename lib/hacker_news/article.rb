@@ -1,6 +1,21 @@
 class HackerNews::ARTICLE
   @@all = []
-  attr_accessor :title, :id, :type, :author, :time, :text, :url, :parent, :descendants, :kids
+  attr_accessor :title,
+                :id,
+                :type,
+                :author,
+                :time,
+                :text,
+                :url,
+                :parent,
+                :descendants,
+                :kids,
+                :latest_stories,
+                :top_stories,
+                :best_stories,
+                :show_stories,
+                :ask_stories,
+                :job_stories
 
   def initialize(article)
       article.each {|k, v| send(:"#{k}=", v)} unless article == nil
@@ -40,6 +55,7 @@ class HackerNews::ARTICLE
       def find_by_author(author)
         all.select {|e| e.author.downcase == author.downcase}
       end
+
       #returns kid id's by parent id on invalid return false
       def kids_by_id(id)
         kids = all.select {|e| e.id == id}

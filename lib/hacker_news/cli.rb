@@ -1,6 +1,8 @@
 class HackerNews::CLI
 
   def call
+    @scraper = HackerNews::SCRAPER.new
+
     menu
     good_bye
   end
@@ -25,7 +27,15 @@ class HackerNews::CLI
     puts "\n"
     puts "Welcome to hacker news!"
     puts "Enter the number of the menu option you'd like to see, or type exit to exit:"
-    puts " 1. Show ten newest posts \n 2. Show ten top posts \n 3. Show ten best posts \n 4. Show ten 'show HN' posts \n 5. Search for article(in top 200) \n 6. Sort articles by Title/Author \n"
+    puts <<~STRING
+          1. Show ten newest posts
+          2. Show ten top posts
+          3. Show ten best posts
+          4. Show ten 'show HN' posts
+          5. Get article comments by id
+          6. Search for article(in top 200)
+          7. Sort articles by Title/Author
+    STRING
 
     input = gets.strip.downcase
 
@@ -38,15 +48,14 @@ class HackerNews::CLI
       # Display articles to user
       HackerNews::ARTICLE.clear
 
-      stories = HackerNews::SCRAPER.new.latest_articles(10)
+      stories = @scraper.latest_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)
 
       display_news(articles)
-
     when "2"
       HackerNews::ARTICLE.clear
 
-      stories = HackerNews::SCRAPER.new.top_articles(10)
+      stories = @scraper.top_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)
 
       display_news(articles)
@@ -54,7 +63,7 @@ class HackerNews::CLI
     when "3"
       HackerNews::ARTICLE.clear
 
-      stories = HackerNews::SCRAPER.new.best_articles(10)
+      stories = @scraper.best_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)
 
       display_news(articles)
@@ -62,12 +71,21 @@ class HackerNews::CLI
     when "4"
       HackerNews::ARTICLE.clear
 
-      stories = HackerNews::SCRAPER.new.show_articles(10)
+      stories = @scraper.show_articles(10)
       articles = HackerNews::ARTICLE.create_from_collection(stories)
 
       display_news(articles)
-
     when "5"
+      puts "Please enter article ID:"
+
+      input = gets.strip
+
+      HackerNews::ARTICLE.clear
+
+      story = HackerNews::SCRAPER.generate_article(input)
+
+
+    when "6"
       puts "Please select what section you'd like to search \n 1. Top Posts \n 2. Newest \n 3. Show HN \n 4. Ask \n 5. jobs"
 
       input = gets.strip.downcase
@@ -82,7 +100,7 @@ class HackerNews::CLI
         # Find article requested by user
         HackerNews::ARTICLE.clear
 
-        articles = HackerNews::SCRAPER.new.top_articles(100)
+        articles = @scraper.top_articles(100)
         HackerNews::ARTICLE.create_from_collection(articles)
 
         articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -100,7 +118,7 @@ class HackerNews::CLI
 
         HackerNews::ARTICLE.clear
 
-        articles = HackerNews::SCRAPER.new.latest_articles(100)
+        articles = @scraper.latest_articles(100)
         HackerNews::ARTICLE.create_from_collection(articles)
 
         articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -119,7 +137,7 @@ class HackerNews::CLI
 
         HackerNews::ARTICLE.clear
 
-        articles = HackerNews::SCRAPER.new.show_articles(100)
+        articles = @scraper.show_articles(100)
         HackerNews::ARTICLE.create_from_collection(articles)
 
         articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -137,7 +155,7 @@ class HackerNews::CLI
         input = gets.strip.downcase
         HackerNews::ARTICLE.clear
 
-        articles = HackerNews::SCRAPER.new.ask_articles(100)
+        articles = @scraper.ask_articles(100)
         HackerNews::ARTICLE.create_from_collection(articles)
 
         articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -155,7 +173,7 @@ class HackerNews::CLI
 
          HackerNews::ARTICLE.clear
 
-         articles = HackerNews::SCRAPER.new.job_articles(100)
+         articles = @scraper.job_articles(100)
          HackerNews::ARTICLE.create_from_collection(articles)
 
          articles = HackerNews::ARTICLE.find_by_keyword("job", input)
@@ -170,10 +188,10 @@ class HackerNews::CLI
           puts "Please enter a valid menu selection"
           menu
         end
-    when "6"
+    when "7"
       HackerNews::ARTICLE.clear
 
-      articles = HackerNews::SCRAPER.new.top_articles(50)
+      articles = @scraper.top_articles(50)
       HackerNews::ARTICLE.create_from_collection(articles)
 
       puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"
@@ -199,6 +217,7 @@ class HackerNews::CLI
         puts "Please enter a valid menu selection"
         menu
       end
+      menu
     end
   end
 
