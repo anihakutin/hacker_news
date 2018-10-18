@@ -28,9 +28,22 @@ class HackerNews::ARTICLE
       # Takes hash and creates and returns article objects
       def create_from_collection(collection)
         articles = [ ]
-        collection.each {|article| articles << self.new(article)}
+        collection.each {|article| articles << self.find_or_create(article)}
         articles
       end
+
+      # returns a single article
+      def find_or_create(article)
+        # binding.pry
+        finder = self.find_by_id(article[:id])
+        finder = self.new(article) unless finder != nil
+        finder
+      end
+
+      def find_by_id(id)
+        all.find {|e| e.id.to_s == id}
+      end
+
       # Returns sorted objects
       def sort_by_name
         all.sort_by {|e| e.title.downcase}

@@ -50,7 +50,7 @@ class HackerNews::CLI
         # Get articles
         # Create article objects
         # Display articles to user
-        HackerNews::ARTICLE.clear
+        #
 
         stories = @api_connector.latest_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
@@ -59,7 +59,7 @@ class HackerNews::CLI
         menu
 
       when "2"
-        HackerNews::ARTICLE.clear
+
 
         stories = @api_connector.top_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
@@ -68,7 +68,7 @@ class HackerNews::CLI
         menu
 
       when "3"
-        HackerNews::ARTICLE.clear
+
 
         stories = @api_connector.best_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
@@ -77,7 +77,7 @@ class HackerNews::CLI
         menu
 
       when "4"
-        HackerNews::ARTICLE.clear
+
 
         stories = @api_connector.show_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
@@ -98,7 +98,7 @@ class HackerNews::CLI
           stories = @api_connector.get_comments(kids.first, kids.last)
 
           articles = HackerNews::ARTICLE.create_from_collection(stories)
-          display_news(articles)
+          display_news(articles.select{|a| !a.author.nil?})
         end
 
         menu
@@ -123,7 +123,7 @@ class HackerNews::CLI
           # Get articles
           # Create article objects
           # Find article requested by user
-          HackerNews::ARTICLE.clear
+
 
           articles = @api_connector.top_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
@@ -141,7 +141,7 @@ class HackerNews::CLI
           puts "Please enter your keyword"
           input = gets.strip.downcase
 
-          HackerNews::ARTICLE.clear
+
 
           articles = @api_connector.latest_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
@@ -160,7 +160,7 @@ class HackerNews::CLI
 
           input = gets.strip.downcase
 
-          HackerNews::ARTICLE.clear
+
 
           articles = @api_connector.show_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
@@ -178,7 +178,7 @@ class HackerNews::CLI
           puts "Please enter your keyword"
 
           input = gets.strip.downcase
-          HackerNews::ARTICLE.clear
+
 
           articles = @api_connector.ask_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
@@ -196,7 +196,7 @@ class HackerNews::CLI
            puts "Please enter your keyword"
            input = gets.strip.downcase
 
-           HackerNews::ARTICLE.clear
+
 
            articles = @api_connector.job_articles(100)
            HackerNews::ARTICLE.create_from_collection(articles)
@@ -217,7 +217,7 @@ class HackerNews::CLI
           menu
 
       when "7"
-        HackerNews::ARTICLE.clear
+
 
         articles = @api_connector.top_articles(50)
         HackerNews::ARTICLE.create_from_collection(articles)
