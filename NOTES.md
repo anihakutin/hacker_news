@@ -10,7 +10,7 @@
 
 3. build article object with sort and search methods
   Article represents any post(story, ask, jobs etc.)
-  -Can search for articles - Done
+  -Can search for articles - Done, "add function to instruct how many articles to search".
   -Can sort articles - Done
   -Can query Articles(author, keyword) - Done
 
