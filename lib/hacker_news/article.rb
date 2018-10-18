@@ -56,7 +56,7 @@ class HackerNews::ARTICLE
         all.select {|e| e.author.downcase == author.downcase}
       end
 
-      #returns kid id's by parent id on invalid return false
+      #returns kid id's by parent id on invalid return nil
       def kids_by_id(id)
         comments = [ ]
         parent = all.select {|e| e.id.to_s == id}

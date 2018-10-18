@@ -74,7 +74,7 @@ class HackerNews::SCRAPER
                     :type => story["type"],
                     :author => story["by"],
                     :time => story["time"],
-                    :text => story["story"],
+                    :text => story["text"],
                     :url => story["url"],
                     :parent => story["parent"],
                     :descendants => story["descendants"],
