@@ -18,7 +18,7 @@ class HackerNews::CLI
       end
       puts "Link #{x.url}" unless x.url == nil
       puts "#{x.descendants} comments, Article ID: #{x.id}" unless x.descendants == nil
-      puts "#{x.text}"
+      puts "#{x.text}" unless x.text == nil
     end
 
     puts "------------------------ \n"
