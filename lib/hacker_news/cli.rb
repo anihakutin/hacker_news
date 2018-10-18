@@ -28,7 +28,7 @@ class HackerNews::CLI
     input = nil
 
     puts "\n"
-    puts "Welcome to hacker news!"
+    puts "Welcome to hacker news!(~~beta~~)"
     puts "Enter the number of the menu option you'd like to see, or type exit to exit:"
     puts <<~STRING
           1. Show ten newest posts
