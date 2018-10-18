@@ -1,4 +1,4 @@
-class HackerNews::SCRAPER
+class HackerNews::API_CONNECTOR
 
   def initialize
     @loaded_articles = { }

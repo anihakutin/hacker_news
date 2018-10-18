@@ -1,7 +1,7 @@
 class HackerNews::CLI
 
   def call
-    @scraper = HackerNews::SCRAPER.new
+    @api_connector = HackerNews::API_CONNECTOR.new
 
     menu
     good_bye
@@ -52,7 +52,7 @@ class HackerNews::CLI
         # Display articles to user
         HackerNews::ARTICLE.clear
 
-        stories = @scraper.latest_articles(10)
+        stories = @api_connector.latest_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
 
         display_news(articles)
@@ -61,7 +61,7 @@ class HackerNews::CLI
       when "2"
         HackerNews::ARTICLE.clear
 
-        stories = @scraper.top_articles(10)
+        stories = @api_connector.top_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
 
         display_news(articles)
@@ -70,7 +70,7 @@ class HackerNews::CLI
       when "3"
         HackerNews::ARTICLE.clear
 
-        stories = @scraper.best_articles(10)
+        stories = @api_connector.best_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
 
         display_news(articles)
@@ -79,7 +79,7 @@ class HackerNews::CLI
       when "4"
         HackerNews::ARTICLE.clear
 
-        stories = @scraper.show_articles(10)
+        stories = @api_connector.show_articles(10)
         articles = HackerNews::ARTICLE.create_from_collection(stories)
 
         display_news(articles)
@@ -95,7 +95,7 @@ class HackerNews::CLI
         if kids.first == nil
           puts "Invalid article ID"
         else
-          stories = @scraper.get_comments(kids.first, kids.last)
+          stories = @api_connector.get_comments(kids.first, kids.last)
 
           articles = HackerNews::ARTICLE.create_from_collection(stories)
           display_news(articles)
@@ -125,7 +125,7 @@ class HackerNews::CLI
           # Find article requested by user
           HackerNews::ARTICLE.clear
 
-          articles = @scraper.top_articles(100)
+          articles = @api_connector.top_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
 
           articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -143,7 +143,7 @@ class HackerNews::CLI
 
           HackerNews::ARTICLE.clear
 
-          articles = @scraper.latest_articles(100)
+          articles = @api_connector.latest_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
 
           articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -162,7 +162,7 @@ class HackerNews::CLI
 
           HackerNews::ARTICLE.clear
 
-          articles = @scraper.show_articles(100)
+          articles = @api_connector.show_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
 
           articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -180,7 +180,7 @@ class HackerNews::CLI
           input = gets.strip.downcase
           HackerNews::ARTICLE.clear
 
-          articles = @scraper.ask_articles(100)
+          articles = @api_connector.ask_articles(100)
           HackerNews::ARTICLE.create_from_collection(articles)
 
           articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -198,7 +198,7 @@ class HackerNews::CLI
 
            HackerNews::ARTICLE.clear
 
-           articles = @scraper.job_articles(100)
+           articles = @api_connector.job_articles(100)
            HackerNews::ARTICLE.create_from_collection(articles)
 
            articles = HackerNews::ARTICLE.find_by_keyword("job", input)
@@ -219,7 +219,7 @@ class HackerNews::CLI
       when "7"
         HackerNews::ARTICLE.clear
 
-        articles = @scraper.top_articles(50)
+        articles = @api_connector.top_articles(50)
         HackerNews::ARTICLE.create_from_collection(articles)
 
         puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"
