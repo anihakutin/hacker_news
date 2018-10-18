@@ -61,7 +61,7 @@ class HackerNews::ARTICLE
         comments = [ ]
         parent = all.select {|e| e.id.to_s == id}
         comments << parent.first.kids ||= nil
-        comments << parent.first.descendants
+        comments << parent.first.descendants ||= nil
 
         comments
       end

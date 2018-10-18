@@ -11,9 +11,13 @@ class HackerNews::CLI
     puts "\n ----You ask, you get...---- \n\n"
     # Print article objects
     articles.each do |x|
-      puts "#{x.title} by #{x.author}"
-      puts "Link #{x.url}"
-      puts "#{x.descendants} comments, Article ID: #{x.id}"
+      if x.type == "comment"
+        puts "Comment by #{x.author}"
+      else
+        puts "#{x.title} by #{x.author}"
+      end
+      puts "Link #{x.url}" unless x.url == nil
+      puts "#{x.descendants} comments, Article ID: #{x.id}" unless x.descendants == nil
       puts "#{x.text}"
     end
 
@@ -31,7 +35,7 @@ class HackerNews::CLI
           2. Show ten top posts
           3. Show ten best posts
           4. Show ten 'show HN' posts
-          5. Get article comments by id
+          5. Get article comments by id(broken... :( )
           6. Search for article(in top 200)
           7. Sort articles by Title/Author
     STRING
@@ -86,11 +90,13 @@ class HackerNews::CLI
         input = gets.strip
 
         kids = HackerNews::ARTICLE.kids_by_id(input)
-        
+
         if kids.first == nil
           puts "Invalid article ID"
         else
-          stories = @scraper.generate_article(kids[0], kids[1])
+          # stories = @scraper.generate_article(kids[0], kids[1]) #comments, number of comments
+          # articles = HackerNews::ARTICLE.create_from_collection(stories)
+          stories = @scraper.get_comments(kids.first, kids.last)
           articles = HackerNews::ARTICLE.create_from_collection(stories)
 
           display_news(articles)
