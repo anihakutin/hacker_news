@@ -73,8 +73,8 @@ class HackerNews::ARTICLE
       def kids_by_id(id)
         comments = [ ]
         parent = all.select {|e| e.id.to_s == id}
-        comments << parent.first.kids ||= nil
-        comments << parent.first.descendants ||= nil
+        comments << parent&.first&.kids
+        comments << parent&.first&.descendants
 
         comments
       end

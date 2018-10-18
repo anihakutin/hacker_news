@@ -79,33 +79,33 @@ class HackerNews::CLI
           4. Show ten 'show HN' posts
           5. Get article comments by id
           6. Search for article(in top 10)
-          7. Sort articles by Title/Author
+          7. Sort top ten articles by Title/Author
     STRING
   end
 
   def latest_articles
-    stories = @api_connector.latest_articles(10)
+    stories = @api_connector.latest_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
 
     display_news(articles)
   end
 
   def top_articles
-    stories = @api_connector.top_articles(10)
+    stories = @api_connector.top_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
 
     display_news(articles)
   end
 
   def best_articles
-    stories = @api_connector.best_articles(10)
+    stories = @api_connector.best_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
 
     display_news(articles)
   end
 
   def show_articles
-    stories = @api_connector.show_articles(10)
+    stories = @api_connector.show_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
 
     display_news(articles)
@@ -118,7 +118,7 @@ class HackerNews::CLI
     kids = HackerNews::ARTICLE.kids_by_id(input)
 
     if kids.first == nil
-      puts "Invalid article ID"
+      puts "Invalid article ID, you must first load articles in order to get it's comments"
     else
       stories = @api_connector.get_comments(kids.first, kids.last)
 
@@ -144,7 +144,7 @@ class HackerNews::CLI
       puts "Please enter your keyword"
       input = gets.strip.downcase
 
-      articles = @api_connector.top_articles(100)
+      articles = @api_connector.top_articles
       HackerNews::ARTICLE.create_from_collection(articles)
 
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -160,7 +160,7 @@ class HackerNews::CLI
       puts "Please enter your keyword"
       input = gets.strip.downcase
 
-      articles = @api_connector.latest_articles(100)
+      articles = @api_connector.latest_articles
       HackerNews::ARTICLE.create_from_collection(articles)
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
@@ -175,7 +175,7 @@ class HackerNews::CLI
       puts "Please enter your keyword"
       input = gets.strip.downcase
 
-      articles = @api_connector.show_articles(100)
+      articles = @api_connector.show_articles
       HackerNews::ARTICLE.create_from_collection(articles)
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
@@ -190,7 +190,7 @@ class HackerNews::CLI
       puts "Please enter your keyword"
       input = gets.strip.downcase
 
-      articles = @api_connector.ask_articles(100)
+      articles = @api_connector.ask_articles
       HackerNews::ARTICLE.create_from_collection(articles)
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
@@ -205,7 +205,7 @@ class HackerNews::CLI
        puts "Please enter your keyword"
        input = gets.strip.downcase
 
-       articles = @api_connector.job_articles(100)
+       articles = @api_connector.job_articles
        HackerNews::ARTICLE.create_from_collection(articles)
        articles = HackerNews::ARTICLE.find_by_keyword("job", input)
 
@@ -222,7 +222,7 @@ class HackerNews::CLI
   end
 
   def sort_by_selection
-    articles = @api_connector.top_articles(50)
+    articles = @api_connector.top_articles
     HackerNews::ARTICLE.create_from_collection(articles)
 
     puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"

@@ -32,7 +32,7 @@ class HackerNews::API_CONNECTOR
       @loaded_articles[:ask_stories] ||= generate_article(stories, count)
     end
 
-    def job_articles(count = 20)
+    def job_articles(count = 10)
       stories = get_page_data("jobstories")
       @loaded_articles[:job_stories] ||= generate_article(stories, count)
     end
