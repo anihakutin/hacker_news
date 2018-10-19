@@ -69,16 +69,16 @@ class HackerNews::API_CONNECTOR
         story_response = Net::HTTP.get(story_uri)
         story = JSON.parse(story_response)
         # article hash builder
-        new_story = {:title => story["title"],
-                    :id => story["id"],
-                    :type => story["type"],
-                    :author => story["by"],
-                    :time => story["time"],
-                    :text => story["text"],
-                    :url => story["url"],
-                    :parent => story["parent"],
-                    :descendants => story["descendants"],
-                    :kids => story["kids"]}
+        new_story = {:title => story["title"] ||= nil,
+                    :id => story["id"] ||= nil,
+                    :type => story["type"] ||= nil,
+                    :author => story["by"] ||= nil,
+                    :time => story["time"] ||= nil,
+                    :text => story["text"] ||= nil,
+                    :url => story["url"] ||= nil,
+                    :parent => story["parent"] ||= nil,
+                    :descendants => story["descendants"] ||= nil,
+                    :kids => story["kids"] ||= nil}
         stories << new_story
         i += 1
       end
