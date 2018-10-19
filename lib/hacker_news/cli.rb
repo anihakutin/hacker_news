@@ -7,29 +7,9 @@ class HackerNews::CLI
     good_bye
   end
 
-  def display_news(articles)
-    puts "\n ----You ask, you get...---- \n\n"
-    # Print article objects
-    articles.each do |x|
-    if x.type == "comment"
-        puts "Comment by #{x.author}"
-      else
-        puts "#{x.title} by #{x.author}"
-      end
-      puts "Link #{x.url}" unless x.url == nil
-      puts "#{x.descendants} comments, Article ID: #{x.id}" unless x.descendants == nil
-      puts "#{x.text}" unless x.text == nil
-      puts "\n"
-    end
-
-    puts "------------------------ \n"
-  end
-
   def menu
     input = nil
-
     welcome_msg
-
     input = gets.strip.downcase
 
     if input != "exit"
@@ -37,27 +17,21 @@ class HackerNews::CLI
       when "1"
         latest_articles
         menu
-
       when "2"
         top_articles
         menu
-
       when "3"
         best_articles
         menu
-
       when "4"
         show_articles
         menu
-
       when "5"
         get_comments
         menu
-
       when "6"
         find_by_keyword
         menu
-
       when "7"
         sort_by_selection
         menu
@@ -83,37 +57,50 @@ class HackerNews::CLI
     STRING
   end
 
+  def display_news(articles)
+    puts "\n ----You ask, you get...---- \n\n"
+
+    articles.each do |x|
+    if x.type == "comment"
+        puts "Comment by #{x.author}"
+      else
+        puts "#{x.title} by #{x.author}"
+      end
+      puts "Link #{x.url}" unless x.url == nil
+      puts "#{x.descendants} comments, Article ID: #{x.id}" unless x.descendants == nil
+      puts "#{x.text}" unless x.text == nil
+      puts "\n"
+    end
+
+    puts "------------------------ \n"
+  end
+
   def latest_articles
     stories = @api_connector.latest_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
-
     display_news(articles)
   end
 
   def top_articles
     stories = @api_connector.top_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
-
     display_news(articles)
   end
 
   def best_articles
     stories = @api_connector.best_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
-
     display_news(articles)
   end
 
   def show_articles
     stories = @api_connector.show_articles
     articles = HackerNews::ARTICLE.create_from_collection(stories)
-
     display_news(articles)
   end
 
   def get_comments
     puts "Please enter article ID:"
-
     input = gets.strip
     kids = HackerNews::ARTICLE.kids_by_id(input)
 
@@ -143,10 +130,8 @@ class HackerNews::CLI
     when "1"
       puts "Please enter your keyword"
       input = gets.strip.downcase
-
       articles = @api_connector.top_articles
       HackerNews::ARTICLE.create_from_collection(articles)
-
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
       if !articles.empty?
@@ -155,7 +140,6 @@ class HackerNews::CLI
          invalid_input(2)
          menu
       end
-
     when "2"
       puts "Please enter your keyword"
       input = gets.strip.downcase
@@ -170,11 +154,9 @@ class HackerNews::CLI
          invalid_input(2)
          menu
       end
-
     when "3"
       puts "Please enter your keyword"
       input = gets.strip.downcase
-
       articles = @api_connector.show_articles
       HackerNews::ARTICLE.create_from_collection(articles)
       articles = HackerNews::ARTICLE.find_by_keyword("story", input)
@@ -185,7 +167,6 @@ class HackerNews::CLI
          invalid_input(2)
          menu
       end
-
     when "4"
       puts "Please enter your keyword"
       input = gets.strip.downcase
@@ -200,7 +181,6 @@ class HackerNews::CLI
          invalid_input(2)
          menu
       end
-
     when "5"
        puts "Please enter your keyword"
        input = gets.strip.downcase
@@ -232,12 +212,9 @@ class HackerNews::CLI
     case input
       when "1"
       articles = HackerNews::ARTICLE.sort_by_name
-
       display_news(articles)
-
       when "2"
         articles = HackerNews::ARTICLE.sort_by_author
-
         display_news(articles)
       else
         invalid_input(1)

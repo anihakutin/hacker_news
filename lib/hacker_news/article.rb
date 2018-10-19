@@ -18,7 +18,7 @@ class HackerNews::ARTICLE
                 :job_stories
 
   def initialize(article)
-      article.each {|k, v| send(:"#{k}=", v)} unless article == nil
+    article.each {|k, v| send(:"#{k}=", v)} unless article == nil
 
     @@all << self
   end
@@ -75,7 +75,6 @@ class HackerNews::ARTICLE
         parent = all.select {|e| e.id.to_s == id}
         comments << parent&.first&.kids
         comments << parent&.first&.descendants
-
         comments
       end
 
