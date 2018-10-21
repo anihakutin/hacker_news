@@ -9,44 +9,42 @@ class HackerNews::CLI
 
   def menu
     input = nil
-    welcome_msg
-    input = gets.strip.downcase
+    while input != "exit"
+      welcome_msg
+      input = get_input
 
-    if input != "exit"
       case input
-      when "1"
-        latest_articles
-        menu
-      when "2"
-        top_articles
-        menu
-      when "3"
-        best_articles
-        menu
-      when "4"
-        show_articles
-        menu
-      when "5"
-        get_comments
-        menu
-      when "6"
-        find_by_keyword
-        menu
-      when "7"
-        sort_by_selection
-        menu
-      else
-        invalid_input(1)
-        menu
+        when "1"
+          latest_articles
+        when "2"
+          top_articles
+        when "3"
+          best_articles
+        when "4"
+          show_articles
+        when "5"
+          get_comments
+        when "6"
+          find_by_keyword
+        when "7"
+          sort_by_selection
+        end
       end
-    end
   end
 
   def welcome_msg
-    puts "\n"
-    puts "Welcome to hacker news!(~~beta~~)"
-    puts "Enter the number of the menu option you'd like to see, or type exit to exit:"
-    puts <<~STRING
+
+
+    puts 'Welcome to hacker news!(~~beta~~)'
+    puts '...........'
+    puts '\-\...../-/'
+    puts '.\-\.-./-/.   |-|  |-|   |-\  |-|'
+    puts '..\-|-|-/..   |-|--|-|   |-| \|-|'
+    puts '....|-|....   |-|  |-| . |-|  \-| .'
+    puts ' '
+    puts  <<~STRING
+          Please enter a menu item number, or type exit to exit:"
+
           1. Show ten newest posts
           2. Show ten top posts
           3. Show ten best posts
@@ -55,6 +53,12 @@ class HackerNews::CLI
           6. Search for article(in top 10)
           7. Sort top ten articles by Title/Author
     STRING
+  end
+
+  def get_input
+    input = nil
+    input = gets.strip.downcase
+    input
   end
 
   def display_news(articles)
@@ -115,89 +119,86 @@ class HackerNews::CLI
   end
 
   def find_by_keyword
-    puts <<~STRING
-          Please select what section you'd like to search
-            1. Top Posts
-            2. Newest
-            3. Show HN
-            4. Ask
-            5. jobs
-          STRING
+    input = nil
+    while input != "exit"
+      puts <<~STRING
+            Please enter a menu item number or type "exit" to go back to the main menu.
+            Please select what section you'd like to search:
+              1. Top Posts
+              2. Newest
+              3. Show HN
+              4. Ask
+              5. jobs
+            STRING
 
-    input = gets.strip.downcase
+      input = get_input
+      case input
+        when "1"
+          puts "Please enter your keyword"
+          input = get_input
 
-    case input
-    when "1"
-      puts "Please enter your keyword"
-      input = gets.strip.downcase
-      articles = @api_connector.top_articles
-      HackerNews::ARTICLE.create_from_collection(articles)
-      articles = HackerNews::ARTICLE.find_by_keyword("story", input)
+          articles = @api_connector.top_articles
+          HackerNews::ARTICLE.create_from_collection(articles)
+          articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
-      if !articles.empty?
-         display_news(articles)
-      else
-         invalid_input(2)
-         menu
-      end
-    when "2"
-      puts "Please enter your keyword"
-      input = gets.strip.downcase
+          if !articles.empty?
+             display_news(articles)
+          else
+             invalid_input(2)
+          end
+        when "2"
+          puts "Please enter your keyword"
+          input = get_input
 
-      articles = @api_connector.latest_articles
-      HackerNews::ARTICLE.create_from_collection(articles)
-      articles = HackerNews::ARTICLE.find_by_keyword("story", input)
+          articles = @api_connector.latest_articles
+          HackerNews::ARTICLE.create_from_collection(articles)
+          articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
-      if !articles.empty?
-         display_news(articles)
-       else
-         invalid_input(2)
-         menu
-      end
-    when "3"
-      puts "Please enter your keyword"
-      input = gets.strip.downcase
-      articles = @api_connector.show_articles
-      HackerNews::ARTICLE.create_from_collection(articles)
-      articles = HackerNews::ARTICLE.find_by_keyword("story", input)
+          if !articles.empty?
+             display_news(articles)
+           else
+             invalid_input(2)
+          end
+        when "3"
+          puts "Please enter your keyword"
+          input = get_input
 
-      if !articles.empty?
-         display_news(articles)
-       else
-         invalid_input(2)
-         menu
-      end
-    when "4"
-      puts "Please enter your keyword"
-      input = gets.strip.downcase
+          articles = @api_connector.show_articles
+          HackerNews::ARTICLE.create_from_collection(articles)
+          articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
-      articles = @api_connector.ask_articles
-      HackerNews::ARTICLE.create_from_collection(articles)
-      articles = HackerNews::ARTICLE.find_by_keyword("story", input)
+          if !articles.empty?
+             display_news(articles)
+           else
+             invalid_input(2)
+          end
+        when "4"
+          puts "Please enter your keyword"
+          input = get_input
 
-      if !articles.empty?
-         display_news(articles)
-       else
-         invalid_input(2)
-         menu
-      end
-    when "5"
-       puts "Please enter your keyword"
-       input = gets.strip.downcase
+          articles = @api_connector.ask_articles
+          HackerNews::ARTICLE.create_from_collection(articles)
+          articles = HackerNews::ARTICLE.find_by_keyword("story", input)
 
-       articles = @api_connector.job_articles
-       HackerNews::ARTICLE.create_from_collection(articles)
-       articles = HackerNews::ARTICLE.find_by_keyword("job", input)
+          if !articles.empty?
+             display_news(articles)
+           else
+             invalid_input(2)
+          end
+        when "5"
+           puts "Please enter your keyword"
+           input = get_input
 
-       if !articles.empty?
-          display_news(articles)
-       else
-          invalid_input(2)
-          menu
-       end
-      else
-        invalid_input(1)
-        menu
+           articles = @api_connector.job_articles
+           HackerNews::ARTICLE.create_from_collection(articles)
+           articles = HackerNews::ARTICLE.find_by_keyword("job", input)
+
+           if !articles.empty?
+              display_news(articles)
+           else
+              invalid_input(2)
+           end
+         end
       end
   end
 
@@ -205,30 +206,32 @@ class HackerNews::CLI
     articles = @api_connector.top_articles
     HackerNews::ARTICLE.create_from_collection(articles)
 
-    puts "Please enter how you would like to sort the News articles(by 1. Title, 2. Author)"
+    input = nil
+    while input != "exit"
+      puts <<~STRING
+             Please enter a menu item number or type "exit" to go back to the main menu.
+             Sort by: (1. Title, 2. Author)
+           STRING
+      input = get_input
 
-    input = gets.strip.downcase
-
-    case input
-      when "1"
-      articles = HackerNews::ARTICLE.sort_by_name
-      display_news(articles)
-      when "2"
-        articles = HackerNews::ARTICLE.sort_by_author
-        display_news(articles)
-      else
-        invalid_input(1)
-        menu
-      end
+      case input
+        when "1"
+          articles = HackerNews::ARTICLE.sort_by_name
+          display_news(articles)
+        when "2"
+          articles = HackerNews::ARTICLE.sort_by_author
+          display_news(articles)
+        end
+     end
   end
 
   def invalid_input(msg = 1)
     case msg
-    when 1
-      puts "Please enter a valid menu selection"
-    when 2
-      puts "No matching keywords found \n"
-    end
+      when 1
+        puts "Please enter a valid menu selection"
+      when 2
+        puts "No matching keywords found \n"
+      end
   end
 
   def good_bye

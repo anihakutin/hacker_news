@@ -34,23 +34,24 @@ class HackerNews::ARTICLE
 
       # returns a single article
       def find_or_create(article)
-        # binding.pry
         finder = self.find_by_id(article[:id])
         finder = self.new(article) unless finder != nil
         finder
       end
 
       def find_by_id(id)
-        all.find {|e| e.id.to_s == id}
+        all.find {|e| e.id == id}
       end
 
       # Returns sorted objects
       def sort_by_name
-        all.sort_by {|e| e.title.downcase}
+        sorter = all.sort_by {|e| e.title.downcase}
+        sorter.uniq
       end
       # Returns sorted objects
       def sort_by_author
-        all.sort_by {|e| e.author.downcase}
+        sorter = all.sort_by {|e| e.author.downcase}
+        sorter.uniq
       end
       # Returns filtered object's results
       def filter_by_type(type)
@@ -68,7 +69,6 @@ class HackerNews::ARTICLE
       def find_by_author(author)
         all.select {|e| e.author.downcase == author.downcase}
       end
-
       #returns kid id's by parent id on invalid return nil
       def kids_by_id(id)
         comments = [ ]
