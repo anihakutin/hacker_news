@@ -50,7 +50,7 @@ class HackerNews::API_CONNECTOR
       # get page data
       response = Net::HTTP.get(uri)
       story_ids = JSON.parse(response)
-    end
+     end
 
     # generate article with page id's, return "count" articles
     def generate_article(page_data, count = 1)
