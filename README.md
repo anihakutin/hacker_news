@@ -28,7 +28,7 @@ The #genrate_article method takes in article id's and returns an array of articl
 ```
 def generate_article(page_data, count = 1)
  ...
- 
+
  story_url = "https://hacker-news.firebaseio.com/v0/item/" + "#{page_data[i]}.json"
         story_uri = URI(story_url)
         #get page data
@@ -73,9 +73,6 @@ Or install it yourself as:
 
     $ gem install hacker_news
 
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 

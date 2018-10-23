@@ -1,7 +1,7 @@
-require "hacker_news/version.rb"
-require "hacker_news/cli.rb"
-require "hacker_news/article.rb"
-require "hacker_news/api_connector.rb"
+require_relative "hacker_news/version.rb"
+require_relative "hacker_news/cli.rb"
+require_relative "hacker_news/article.rb"
+require_relative "hacker_news/api_connector.rb"
 
 require 'net/http'
 require 'json'
