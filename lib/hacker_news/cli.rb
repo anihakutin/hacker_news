@@ -50,7 +50,7 @@ class HackerNews::CLI
           3. Show ten best posts
           4. Show ten 'show HN' posts
           5. Get article comments by id
-          6. Search for article(in top 10)
+          6. Search by keyword in article(in top 10)
           7. Sort top ten articles by Title/Author
     STRING
   end

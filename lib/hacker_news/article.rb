@@ -18,7 +18,7 @@ class HackerNews::ARTICLE
                 :job_stories
 
   def initialize(article)
-    article.each {|k, v| send(:"#{k}=", v)} unless article == nil
+    article.each {|k, v| send(:"#{k}=", v)}
 
     @@all << self
   end
@@ -45,12 +45,14 @@ class HackerNews::ARTICLE
 
       # Returns sorted objects
       def sort_by_name
-        sorter = all.sort_by {|e| e.title.downcase}
+        sorter = all.reject {|e| e.title.nil?}
+        sorter = sorter.sort_by {|e| e.title.downcase}
         sorter.uniq
       end
       # Returns sorted objects
       def sort_by_author
-        sorter = all.sort_by {|e| e.author.downcase}
+        sorter = all.reject {|e| e.author.nil?}
+        sorter = sorter.sort_by {|e| e.author.downcase}
         sorter.uniq
       end
       # Returns filtered object's results
