@@ -9,13 +9,7 @@ class HackerNews::ARTICLE
                 :url,
                 :parent,
                 :descendants,
-                :kids,
-                :latest_stories,
-                :top_stories,
-                :best_stories,
-                :show_stories,
-                :ask_stories,
-                :job_stories
+                :kids
 
   def initialize(article)
     article.each {|k, v| send(:"#{k}=", v)}
@@ -27,9 +21,7 @@ class HackerNews::ARTICLE
   class << self
       # Takes hash and creates and returns article objects
       def create_from_collection(collection)
-        articles = [ ]
-        collection.each {|article| articles << self.find_or_create(article)}
-        articles
+        collection.map {|article| self.find_or_create(article)}
       end
 
       # returns a single article
@@ -45,15 +37,11 @@ class HackerNews::ARTICLE
 
       # Returns sorted objects
       def sort_by_name
-        sorter = all.reject {|e| e.title.nil?}
-        sorter = sorter.sort_by {|e| e.title.downcase}
-        sorter.uniq
+        all.select {|e| !e.title.nil? }.sort_by {|e| e.title.downcase}
       end
       # Returns sorted objects
       def sort_by_author
-        sorter = all.reject {|e| e.author.nil?}
-        sorter = sorter.sort_by {|e| e.author.downcase}
-        sorter.uniq
+        all.select {|e| e.author != nil }.sort_by {|e| e.author.downcase}
       end
       # Returns filtered object's results
       def filter_by_type(type)
@@ -78,10 +66,6 @@ class HackerNews::ARTICLE
         comments << parent&.first&.kids
         comments << parent&.first&.descendants
         comments
-      end
-
-      def clear
-        all.clear
       end
 
       def all
